@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1584356781 source:e:\new unity project\lab05\main.cpp
+	<iostream>
+	"tests.h"
+	"GymExercise.h"
+	"Repo.h"
+
+1584356781 e:\new unity project\lab05\tests.h
+
+1584356781 e:\new unity project\lab05\gymexercise.h
+
+1584356781 e:\new unity project\lab05\repo.h
+	"GymExercise.h"
+
+1584356781 source:e:\new unity project\lab05\repo.cpp
+	"Repo.h"
+	"GymExercise.h"
+
+1584356903 source:e:\new unity project\lab05\gymexercise.cpp
+	<cstring>
+	"GymExercise.h"
+
