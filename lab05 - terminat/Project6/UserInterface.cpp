@@ -53,6 +53,7 @@ void UserInterface::add()
 //Sterge un element din lista
 void UserInterface::remove()
 {
+	this->getAll();
 	cout << "Se sterge exercitiul cu ID-ul (ID-ul este pozitia in lista, indexarea de la 0): \n";
 
 	int id;
@@ -66,6 +67,7 @@ void UserInterface::remove()
 //Actualizeaza un exercetiu care se afla pe o anumita pozitie 
 void UserInterface::update()
 {
+	this->getAll();
 	cout << "Se va actualiza exercitiul care are ID-ul (ID-ul este pozitia in lista, indexarea de la 0): ";
 	int index = 0;
 	cin >> index;;
@@ -103,13 +105,12 @@ void UserInterface::getAll()
 }
 
 /*
-	Pentru undo memorez in copyService lista initiala inainte ca aceasta sa se modifice; in cazul in care este aplicat UNDO lista initiala va memora copyService
-	UNDO se poate folosi doar o data !!!
+
 */
 void UserInterface::run()
 {
 	int undo = 0;
-	Service copyService;
+	Service copyService[101];
 	char op;
 	int ok = 1;
 	int X;
@@ -120,13 +121,13 @@ void UserInterface::run()
 		cin >> op;
 		cout << "\n";
 		if (op == '1')
-			copyService = this->s, undo = 1, this->add();
+			copyService[undo++] = this->s, this->add();
 
 		if (op == '2')
-			copyService = this->s, undo = 1, this->remove();
+			copyService[undo++] = this->s, this->remove();
 		
 		if (op == '3')
-			copyService = this->s, undo = 1, this->update();
+			copyService[undo++] = this->s, this->update();
 
 		if (op == '4')
 			this->getAll();
@@ -148,24 +149,24 @@ void UserInterface::run()
 
 		if (op == '6')
 		{
-			copyService = this->s;
-			undo = 1;
+			copyService[undo++] = this->s;
 			cout << "Se vor sterge exercitiile care au weightKg * noOfReps  < 5\n ";
 			this->s.deleteGyms5service();
 			cout << "S-au sters\n";
+			this->getAll();
 		}
 
 		if (op == '7')
 		{
-			if (undo == 1)
+			if (undo >= 0)
 			{
-				undo = 0;
-				this->s = copyService;
+				this->s = copyService[undo - 1];
+				undo--;
 				cout << "S-a efectuat UNDO\n";
 				cout << "\n";
 			}
 			else
-				cout << "Ai aplicat deja UNDO\n";
+				cout << "Nu poti aplica UNDO\n";
 		}
 
 		if (op == 'x')
